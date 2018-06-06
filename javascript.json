@@ -1,0 +1,217 @@
+{
+	"Document ready": {
+		"prefix": "nwk-doc-ready",
+		"body": [
+			"\\$(function() {",
+			"\t$0",
+			"});"
+		], 
+		"description": "jQuery document.ready"
+	},
+	"Colorbox": {
+		"prefix": "nwk-cbox",
+		"body": [
+			"\\$.colorbox({",
+			"\twidth: '98%',",
+			"\theight: '98%',",
+			"\tiframe: true,",
+			"\tfastIframe: false,",
+			"\tescKey: false,",
+			"\toverlayClose: false,",
+			"\tfixed: true,",
+			"\thref: $url",
+			"});"
+		],
+		"description": "Create Colorbox"
+	},
+	"Attach tip": {
+		"prefix": "nwk-tip",
+		"body": [
+			"var \\$form = $$('#$form_name').data('Zebra_Form');",
+			"\\$form.attach_tip($('#$field_name'), '<?php echo \\$translation->getValue('$translation');?>');"
+		],
+		"description": "Generate attach tip for control"
+	},
+	"Set Select2": {
+		"prefix": "nwk-select2",
+		"body": [
+			"\\$('select').select2({theme: 'bootstrap'});"
+		],
+		"description": "Set all selects to select2"
+	},
+	"ZebraForm callback": {
+		"prefix": "nwk-callback",
+		"body": [
+			"function $callback_name($display_indicator, $control_name) {",
+			"\tif ($display_indicator) {",
+			"\t\t\\$('.' + $control_name).show();",
+			"\t} else {",
+			"\t\t\\$('.' + $control_name).hide();",
+			"\t}",
+			"",
+			"\t\\$('.' + $control_name).children().find('input, select').each(function(e) {",
+			"\t\tswitch($(this).get(0).type) {",
+			"\t\t\tcase 'select-one':",
+			"\t\t\t\t\\$(this).select2('val', '');",
+			"\t\t\t\tbreak;",
+			"\t\t\tcase 'radio':",
+			"\t\t\tcase 'checkbox':",
+			"\t\t\t\t\\$(this).attr('checked', false);",
+			"\t\t\t\tbreak;",
+			"\t\t\tcase 'text':",
+			"\t\t\t\t\\$(this).val('');",
+			"\t\t\t\tbreak;",
+			"\t\t}",
+			"\t});",
+			"}",
+		],
+		"description": "Calback for ZebraForm dependency"
+	},
+	"Submit function": {
+		"prefix": "nwk-submit",
+		"body": [
+			"function $function_name() {",
+			"\tvar form = \\$('#$form_name').data('Zebra_Form');",
+			"",
+			"\tif (form.validate()) {",
+			"\t\t\\$('#$control_name').prop('disabled', true);",
+			"\t\tform.submit();",
+			"\t}",
+			"}",
+		],
+		"description": "Submit function"
+	},
+	"Datagrid iframe": {
+		"prefix": "nwk-datagrid-iframe",
+		"body": [
+			"\\$('#$id').show();",
+			"\\$('#$id').prop('src', '$url');",
+			"\\$('#$id').css({'height': window.innerHeight - $height});",
+		],
+		"description": "Show and populate datagrid in iframe"
+	},
+	"Datagrid": {
+		"prefix": "nwk-datagrid",
+		"body": [
+			"\\$('#$datagrid_id').datagrid({",
+			"\ttitle: '<?php echo \\$translation->getValue('$title_translation');?>',",
+			"\tsingleSelect: true,",
+			"\tfitColumns: true,",
+			"\tpagination: true,",
+			"\trownumbers: true,",
+			"\tpageSize: 10,",
+			"\tremoteSort: false,",
+			"\tmultiSort: true,",
+			"\tpageList: [10, 20, 30, 40, 50],",
+			"\ttoolbar: '#$toolbar_id',",
+			"\twidth: '100%',",
+			"\theight: window.innerHeight - 35,",
+			"\turl: '$url',",
+			"\tcolumns:[[",
+			"\t\t{field: '$field_id', halign: 'left', align: 'left', title: '<?php echo \\$translation->getValue('$field_translation');?>', width: 100, sortable: true},",
+			"\t\t{field: '$button_field_id', halign: 'left', align: 'center', title: '<?php echo \\$translation->getValue('$button_translation');?>'},",
+			"\t]],",
+			"\tonLoadError: function() {",
+			"\t\tvar notyE = [];",
+			"",
+			"\t\tnotyE['message'] = '<?php echo \\$translation->getValue('errOnverwagteFout');?>';",
+			"\t\tnotyE['position'] = 'top';",
+			"\t\tnotyE['type'] = 'E';",
+			"\t\tnotyE['modal'] = true;",
+			"\t\tnotyE['timeout'] = false;",
+			"",
+			"\t\tshow_noty(notyE);",
+			"\t},",
+			"\tonLoadSuccess : function(data) {",
+			"\t\tif (data.rows.length > 0 && typeof data.rows[0].ERROR != 'undefined' && data.rows[0].ERROR != '' && data.rows[0].ERROR != null) {",
+			"\t\t\tvar notyE = [];",
+			"",
+			"\t\t\tnotyE['message'] = data.rows[0].ERROR;",
+			"\t\t\tnotyE['position'] = 'top';",
+			"\t\t\tnotyE['type'] = 'E';",
+			"\t\t\tnotyE['modal'] = true;",
+			"\t\t\tnotyE['timeout'] = false;",
+			"",
+			"\t\t\tshow_noty(notyE);",
+			"\t\t}",
+			"\t}",
+			"});",
+			"",
+			"\\$('#$datagrid_id').datagrid('enableFilter');"
+		],
+		"description": "Create Datagrid"
+	},
+	"AJAX call": {
+		"prefix": "nwk-ajax",
+		"body": [
+			"\\$.ajax({",
+			"\turl: '$url',",
+			"\tdataType: 'json',",
+			"\tdata: {",
+			"\t\t$var_naam: $var_value,",
+			"\t}",
+			"}).done(function(data) {",
+			"\tvar noty = [];",
+			"\tnoty['modal'] = true;",
+			"\tnoty['layout'] = 'top';",
+			"",
+			"\tif (data.ERROR == '') {",
+			"\t\tnoty['type'] = 'success';",
+			"\t\tnoty['timeout'] = 1500;",
+			"\t\tnoty['message'] = '<?php echo \\$translation->getValue('$translation');?>';",
+			"\t} else {",
+			"\t\tnoty['type'] = 'error';",
+			"\t\tnoty['timeout'] = false;",
+			"\t\tnoty['message'] = data.ERROR;",
+			"\t}",
+			"",
+			"\tshow_noty(noty);",
+			"});"
+		],
+		"description": "AJAX call"
+	},
+	"Noty message": {
+		"prefix": "nwk-noty-message",
+		"body": [
+			"var noty = [];",
+			"",
+			"noty['message'] = '<?php echo \\$translation->getValue('${1:translation}');?>';",
+			"noty['position'] = 'top';",
+			"noty['type'] = '${2|S,W,E|}';",
+			"noty['modal'] = true;",
+			"noty['timeout'] = ${3:timeout};",
+			"",
+			"show_noty(noty);",
+		],
+		"description": "Show message Noty"
+	},
+	"Noty confirm": {
+		"prefix": "nwk-noty-confirm",
+		"body": [
+			"var noty = [];",
+			"",
+			"noty['message'] = '<?php echo \\$translation->getValue('$translation');?>';",
+			"noty['position'] = 'top';",
+			"noty['type'] = 'C';",
+			"noty['modal'] = true;",
+			"noty['button'] = {};",
+			"noty['button'][0] = {",
+			"\t'addClass': 'btn btn-success',",
+			"\t'text': '<?php echo \\$translation->getValue('$success_button_translation');?>',",
+			"\t'onClick': function() {",
+			"\t\t\\$.noty.closeAll();",
+			"\t}",
+			"}",
+			"noty['button'][1] = {",
+			"\t'addClass': 'btn btn-danger',",
+			"\t'text': '<?php echo \\$translation->getValue('$danger_button_translation');?>',",
+			"\t'onClick': function() {",
+			"\t\t\\$.noty.closeAll();",
+			"\t}",
+			"}",
+			"",
+			"show_noty(noty);",
+		],
+		"description": "Show confirm Noty"
+	}
+}
